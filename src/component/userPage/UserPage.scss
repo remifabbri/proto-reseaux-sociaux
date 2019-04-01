@@ -1,0 +1,23 @@
+.bandeau{
+    width: 70em; 
+    height: 200px;
+    background-color:grey; 
+    display: flex; 
+    flex-flow: row nowrap; 
+    justify-content: flex-start; 
+    align-items: flex-end;
+    margin: 0 auto;
+    padding: 20px;   
+
+    .photoprofil{
+        width: 100px;
+        height: 100px;
+        background-color: red; 
+        margin-right: 20px; 
+    }
+
+    .fname, .lname{
+        color: white; 
+    }
+
+}
