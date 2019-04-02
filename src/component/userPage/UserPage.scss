@@ -13,7 +13,23 @@
         width: 100px;
         height: 100px;
         background-color: red; 
-        margin-right: 20px; 
+        margin-right: 20px;
+        border-radius: 50%; 
+        position: relative;
+        background-position: center; 
+        background-size: cover; 
+
+        input{
+            opacity: 0.0; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            bottom: 0; 
+            right: 0; 
+            width: 100%; 
+            height:100%;
+            cursor: pointer; 
+        }
     }
 
     .fname, .lname{

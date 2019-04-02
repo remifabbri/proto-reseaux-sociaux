@@ -13,12 +13,11 @@ const UserRss = props => {
             <section className="section">
                 <h2>Flux RSS</h2>
                 <form action="submit">
-                    <input type="text" value={props.rss} onChange={props.change} />
+                    <input type="text" value={props.value} onChange={props.change} />
                     <button type="submit" onClick={props.submit}>Save RSS</button>
                 </form>
                 {rss}
             </section>
-
         </React.Fragment>
     )
 }
