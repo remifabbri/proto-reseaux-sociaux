@@ -16,7 +16,6 @@ class UserPage extends Component {
     inputRss : ""
   }
 
-
   onImgBandeauChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0]
@@ -82,7 +81,6 @@ class UserPage extends Component {
         });
       })
   }}
-
 
   onImgProfilChange = (e) => {
     if (e.target.files && e.target.files[0]) {

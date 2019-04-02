@@ -15,7 +15,7 @@ const UserImages = props => {
                 </form>
             </section>
             <section className="allImg">
-                {images}
+                { images }
             </section>
         </React.Fragment>
     )

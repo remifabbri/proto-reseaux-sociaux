@@ -8,12 +8,17 @@ import UserPage from './component/userPage/UserPage';
 import Nav from './component/Nav';
 import firebase from './firebase';
 import ReactLoading from 'react-loading';
+import UserAutoSuggest from './component/UserAutoSuggest'
+
+
 
 class App extends Component {
   state = {
     loading: true,
     user: undefined,
-    search: ""
+    search: "",
+    allUsers: undefined,
+    resultSearch: []
   }
   componentWillMount() {
     firebase.auth().onAuthStateChanged(async user => {
@@ -25,11 +30,27 @@ class App extends Component {
           user: userSnapshot.val(),
           loading: false
         })
+
+        const users = await firebase.database().ref('users').once('value')
+        let allUsers = []
+        users.forEach(user => {
+          allUsers = [
+            ...allUsers, 
+            {
+              id: user.key, 
+              ...user.val()
+            }
+          ]
+        })
+        this.setState({
+          allUsers
+        })
       }
       else {
         this.setState({
           user: undefined,
           loading: false
+          
         })
       }
     });
@@ -39,12 +60,14 @@ class App extends Component {
     this.setState({
       search: e.target.value
     })
-    console.log('here'); 
     if(this.state.search.length > 1){
       const snapshot = await firebase.database().ref('users').once('value')
       snapshot.forEach(user => {  
         if(user.val().firstname.indexOf(this.state.search) !== -1) {
-          console.log(user.key, user.val())
+          /* console.log(user.key, user.val()) */
+          this.setState({
+            resultSearch : user.val(),
+          })
         }
         else console.log("pas trouvé")
       })
@@ -58,12 +81,14 @@ class App extends Component {
     return (
 
       <React.Fragment>
-        <Nav user={this.state.user} change={this.onNavSearch} />
+        <Nav user={this.state.user} change={this.onNavSearch} result={this.state.resultSearch} />
+        <UserAutoSuggest allUsers={this.state.allUsers}/>
         {this.state.loading ? <ReactLoading color="#3f51b5" height={'10%'} width={'10%'} type="spin"/> :
           <Router>
             <Switch>
               {!this.state.user && <Route path="/signin" component={Signin} />}
               {!this.state.user && <Route path="/signup" component={Signup} />}
+              {this.state.user &&  <Route path="/user/:id" component={User} />}
               {this.state.user && <Route path="/user" render={() => <UserPage user={this.state.user} />} />}
               {this.state.user && <Route path="/home" component={Home} />}
               {!this.state.user && <Redirect from="/" to="/signin" />}
@@ -71,7 +96,6 @@ class App extends Component {
             </Switch>
           </Router>
         }
-
       </React.Fragment>
     );
   }

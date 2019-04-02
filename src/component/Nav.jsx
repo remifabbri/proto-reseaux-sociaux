@@ -82,7 +82,14 @@ const styles = theme => ({
 
 
 function Nav(props) {
-  const { classes, user } = props;
+  const { classes, user, result } = props;
+
+  
+  const rowResult = props.result.map((currentResult, i) => {
+    return (
+      <p key={i} className='resultRow' style={{ backgroundImage: `url(${currentResult.imageProfil})` }} ><div></div><span>{currentResult.firstname}</span><span>{currentResult.lastname}</span></p>
+    )
+  })
 
   return (
     <div className={classes.root}>
@@ -113,6 +120,7 @@ function Nav(props) {
             </Typography>
             {!user ? <Button color="inherit">Login</Button> : <Button color="inherit" onClick={() => firebase.auth().signOut()}>Logout</Button>}
         </Toolbar>
+        {/* result ? {rowResult} : "" */ }
       </AppBar>
     </div>
   );
