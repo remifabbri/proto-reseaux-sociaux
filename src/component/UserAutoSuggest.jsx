@@ -1,10 +1,13 @@
-import styles from './AutoSuggest.less';
-
 import React, { Component } from 'react';
+import styles from './AutoSuggest.css';
 import Autosuggest from 'react-autosuggest';
+import OtherUser from './otherUser/OtherUser';
+import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
+import { createHashHistory } from 'history'; 
+
 // import languages from './languages'; props.allUsers
 // import { escapeRegexCharacters } from 'utils/utils';
-
+export const history = createHashHistory(); 
 
 export default class UserAutoSuggest extends Component {
   constructor() {
@@ -16,8 +19,9 @@ export default class UserAutoSuggest extends Component {
     };
   }
 
+  history = this.props;
 
-    getSuggestions = value => {
+  getSuggestions = value => {
   
     if (value === '') {
       return [];
@@ -31,7 +35,8 @@ export default class UserAutoSuggest extends Component {
   
   getSuggestionValue = suggestion => suggestion.firstname;
   
-  renderSuggestion = suggestion => <span>{suggestion.firstname}</span>;
+  renderSuggestion = suggestion => <span onClick={this.redirectToUser}>{suggestion.firstname} </span>;
+
 
   onChange = (event, { newValue }) => {
     this.setState({
@@ -39,8 +44,10 @@ export default class UserAutoSuggest extends Component {
     });
   };
 
-  
-  //this.props.history.push('/...') doc react-router
+  redirectToUser = (param) => {
+    this.history.push(`user/${param}`);
+    
+  }
 
   onSuggestionsFetchRequested = ({ value }) => {
     this.setState({
@@ -57,20 +64,13 @@ export default class UserAutoSuggest extends Component {
   render() {
     const { value, suggestions } = this.state;
     const inputProps = {
-      placeholder: "Search for someone",
+      placeholder: "Recherche ...",
       value,
       onChange: this.onChange
     };
 
     return (
       <div id="basic-example" className={styles.container}>
-        <div className={styles.textContainer}>
-          <div className={styles.title}>Basic</div>
-          <div className={styles.description}>
-            Let’s start simple. Here’s a plain list of suggestions.
-          </div>
-          
-        </div>
         <div className={styles.autosuggest}>
           <Autosuggest
             suggestions={suggestions}

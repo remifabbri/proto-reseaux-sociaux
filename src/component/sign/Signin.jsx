@@ -28,7 +28,6 @@ export class Signin extends Component {
                 password: "",
             })
         }
-
     }
 
     render() {

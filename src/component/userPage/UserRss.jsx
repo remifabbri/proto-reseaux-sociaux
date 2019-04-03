@@ -10,17 +10,20 @@ const UserRss = props => {
 
     return (
         <React.Fragment>
-            <section className="section">
-                <h2>Flux RSS</h2>
-                <form action="submit">
-                    <input type="text" value={props.value} onChange={props.change} />
-                    <button type="submit" onClick={props.submit}>Save RSS</button>
-                </form>
-                {rss}
+            <section className="sectionRss">
+                <div className="headerRss">
+                    <h2>Flux RSS</h2>
+                    <form action="submit">
+                        <input type="text" value={props.value} onChange={props.change} />
+                        <button type="submit" onClick={props.submit}>Save RSS</button>
+                    </form>
+                </div>
+                <div>
+                    {rss}
+                </div>
             </section>
         </React.Fragment>
     )
 }
-
 
 export default UserRss

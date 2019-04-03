@@ -5,7 +5,7 @@ const UserBandeau = props => {
   return (
     <React.Fragment>
         <div className="bandeau" style={{ backgroundImage: `url(${props.imageBandeau})` }}>
-            <div class="btnModif">
+            <div className="btnModif">
                 <input type="file" onChange={props.changeIB}/>
             </div>
         </div>
