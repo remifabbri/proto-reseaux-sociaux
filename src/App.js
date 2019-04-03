@@ -88,7 +88,7 @@ class App extends Component {
             <Switch>
               {!this.state.user && <Route path="/signin" component={Signin} />}
               {!this.state.user && <Route path="/signup" component={Signup} />}
-              {this.state.user &&  <Route path="/user/:id" component={User} />}
+              {this.state.user &&  <Route path="/user/:id" component={OtherUser} />}
               {this.state.user && <Route path="/user" render={() => <UserPage user={this.state.user} />} />}
               {this.state.user && <Route path="/home" component={Home} />}
               {!this.state.user && <Redirect from="/" to="/signin" />}

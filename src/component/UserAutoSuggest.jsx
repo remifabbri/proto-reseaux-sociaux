@@ -39,6 +39,9 @@ export default class UserAutoSuggest extends Component {
     });
   };
 
+  
+  //this.props.history.push('/...') doc react-router
+
   onSuggestionsFetchRequested = ({ value }) => {
     this.setState({
       suggestions: this.getSuggestions(value)
